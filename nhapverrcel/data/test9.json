@@ -1,0 +1,47 @@
+{
+  "id": "custom_sample_1",
+  "title": "Đề Thi Thử Tự Tạo - TOEIC Reading Sample",
+  "description": "Mẫu đề thi tự tạo có đầy đủ Part 5, 6, 7 với giải thích chi tiết tiếng Việt.",
+  "partTypes": [
+    "part5",
+    "part6",
+    "part7"
+  ],
+  "totalQuestions": 2,
+  "timeLimitMinutes": 5,
+  "questions": [
+    {
+      "id": 101,
+      "questionNumber": 101,
+      "part": "part5",
+      "topic": "word_form",
+      "topicLabelVi": "Từ loại",
+      "prompt": "The manager requested a _______ report on the sales figures.",
+      "options": {
+        "A": "complete",
+        "B": "completely",
+        "C": "completion",
+        "D": "completing"
+      },
+      "correctAnswer": "A",
+      "explanation": {
+        "overview": "Cần một tính từ đứng trước danh từ report.",
+        "vietnameseTranslation": "Người quản lý đã yêu cầu một bản báo cáo đầy đủ về các số liệu bán hàng.",
+        "grammarRule": "Adj + Noun: \"complete report\".",
+        "optionBreakdown": {
+          "A": "Đúng. \"complete\" là tính từ (đầy đủ).",
+          "B": "Sai. \"completely\" là trạng từ.",
+          "C": "Sai. \"completion\" là danh từ.",
+          "D": "Sai. \"completing\" là dạng phân từ."
+        },
+        "keyVocabulary": [
+          {
+            "word": "complete",
+            "meaning": "đầy đủ, hoàn chỉnh"
+          }
+        ]
+      }
+    }
+  ],
+  "passages": {}
+}
