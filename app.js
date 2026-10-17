@@ -28,8 +28,10 @@ const submitBtn = document.getElementById("submitBtn");
 async function loadExam(fileName = "data.json") {
   try {
     userAnswers = {};
-    isSubmitted = false;
-    currentPartFilter = "ALL";
+isSubmitted = false;
+currentPartFilter = "ALL";
+timeLeft = 120 * 60;
+timerEl.textContent = "120:00";
     submitBtn.classList.remove("hidden");
     
     // Đặt lại trạng thái nút lọc
@@ -298,11 +300,11 @@ function updatePaletteActive() {
 // 9. Đồng hồ đếm ngược
 function startTimer() {
   const timer = setInterval(() => {
-    if (isSubmitted || timeLeft <= 0) {
-      clearInterval(timer);
-      if (timeLeft <= 0 && !isSubmitted) submitQuiz();
-      return;
-    }
+    if (isSubmitted) return;
+if (timeLeft <= 0) {
+  submitQuiz();
+  return;
+}
     timeLeft--;
     const min = String(Math.floor(timeLeft / 60)).padStart(2, "0");
     const sec = String(timeLeft % 60).padStart(2, "0");
@@ -356,5 +358,5 @@ document.querySelectorAll("#partFilterContainer .part-tab-btn").forEach(btn => {
 });
 
 // Khởi chạy ứng dụng
-loadExam("data.json");
+loadExam(examSelect.value);
 startTimer();
