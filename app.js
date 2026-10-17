@@ -76,14 +76,14 @@ function updatePartTabStyles() {
 // 3. Trích xuất đoạn văn cho Part 6 & 7
 function extractPassage(q) {
   if (!q.group_text || q.part === "Part 5") return "";
-  const gt = q.group_text;
-  if (gt.includes("Question\n")) {
-    return gt.split("Question\n")[0].replace("ĐOẠN VĂN\nThu gọn", "").trim();
-  }
-  if (gt.includes("ĐOẠN VĂN\nThu gọn")) {
-    return gt.split("ĐOẠN VĂN\nThu gọn")[1].trim();
-  }
-  return "";
+
+  let text = String(q.group_text).replace(/\r\n?/g, "\n").trim();
+
+  text = text.replace(/^\s*ĐOẠN VĂN\s*Thu gọn\s*/i, "");
+
+  text = text.split(/\bQuestions?\s*\n/i)[0];
+
+  return text.trim();
 }
 
 // 4. Trích xuất lời giải thích
@@ -112,7 +112,11 @@ function renderQuestion(index) {
     : `${q.number || index + 1}. ${q.question}`;
 
   // Xử lý Cột bên trái: Đoạn văn, Audio, Ảnh
+  const shouldRefreshMedia = mediaBox.dataset.currentQuestion !== `${examSelect.value}:${q.number}`;
+if (shouldRefreshMedia) {
   mediaBox.innerHTML = "";
+  mediaBox.dataset.currentQuestion = `${examSelect.value}:${q.number}`;
+}
   const passage = extractPassage(q);
   const hasImages = q.media && q.media.images && q.media.images.length > 0;
   const hasAudio = q.media && q.media.audio && q.media.audio.length > 0;
@@ -123,7 +127,7 @@ function renderQuestion(index) {
     questionCol.classList.add("lg:col-span-6");
 
     // Audio Player phong cách Đậu TOEIC có chỉnh tốc độ
-    if (hasAudio) {
+    if (hasAudio && shouldRefreshMedia) {
       const audioUrl = q.media.audio[0];
       const audioWrapper = document.createElement("div");
       audioWrapper.className = "p-3 bg-slate-50 rounded-xl border border-slate-200/70 shadow-xs";
@@ -145,7 +149,7 @@ function renderQuestion(index) {
     }
 
     // Ảnh minh họa
-    if (hasImages) {
+    if (hasImages && shouldRefreshMedia) {
       const imgWrapper = document.createElement("div");
       imgWrapper.className = "text-center";
       imgWrapper.innerHTML = `<img src="${q.media.images[0]}" class="max-h-80 object-contain mx-auto rounded-xl border border-slate-200 shadow-xs" alt="Hình minh họa" />`;
